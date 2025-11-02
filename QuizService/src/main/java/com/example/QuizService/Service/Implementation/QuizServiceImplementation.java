@@ -14,16 +14,16 @@ public class QuizServiceImplementation implements QuizService {
 
     private QuizRepository quizRepository;
 
-//    private QuestionClient questionClient;
-//
-//    public QuizServiceImplementation(QuestionClient questionClient, QuizRepository quizRepository) {
-//        this.questionClient = questionClient;
-//        this.quizRepository = quizRepository;
-//    }
+    private QuestionClient questionClient;
 
-    public QuizServiceImplementation(QuizRepository quizRepository) {
+    public QuizServiceImplementation(QuestionClient questionClient, QuizRepository quizRepository) {
+        this.questionClient = questionClient;
         this.quizRepository = quizRepository;
     }
+
+//    public QuizServiceImplementation(QuizRepository quizRepository) {
+//        this.quizRepository = quizRepository;
+//    }
 
     @Override
     public Quiz add(Quiz quiz) {
@@ -32,25 +32,25 @@ public class QuizServiceImplementation implements QuizService {
 
     @Override
     public List<Quiz> get() {
-//        List<Quiz> quizzes = quizRepository.findAll();
-//
-//        List<Quiz> newQuizList = quizzes.stream().map(quiz -> {
-//            quiz.setQuestions(questionClient.getQuestionsofQuiz(quiz.getId()));
-//            return quiz;
-//        }).collect(Collectors.toList());
-//
-//        return newQuizList;
+        List<Quiz> quizzes = quizRepository.findAll();
 
-        return quizRepository.findAll();
+        List<Quiz> newQuizList = quizzes.stream().map(quiz -> {
+            quiz.setQuestions(questionClient.getQuestionsofQuiz(quiz.getId()));
+            return quiz;
+        }).collect(Collectors.toList());
+
+        return newQuizList;
+
+//        return quizRepository.findAll();
     }
 
     @Override
     public Quiz getByID(long id) {
-      return quizRepository.findById(id).orElseThrow(() -> new RuntimeException("Quiz not found"));
+//      return quizRepository.findById(id).orElseThrow(() -> new RuntimeException("Quiz not found"));
 
-//        Quiz quiz = quizRepository.findById(id).orElseThrow(() -> new RuntimeException("Quiz not found"));
-//        quiz.setQuestions(questionClient.getQuestionsofQuiz((quiz.getId())));
-//        return quiz;
+        Quiz quiz = quizRepository.findById(id).orElseThrow(() -> new RuntimeException("Quiz not found"));
+        quiz.setQuestions(questionClient.getQuestionsofQuiz((quiz.getId())));
+        return quiz;
     }
 
 }

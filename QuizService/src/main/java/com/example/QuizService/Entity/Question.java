@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//Not saving into DATABASE
+//Not saving into DATABASE, thus not giving @Entity
 
 @Getter
 @Setter
@@ -14,8 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Question {
 
+    //@Id and @GeneratedValue is also not added to it.
+
     private Long questionID;
     private String question;
-
     private Long quizId;
 }
